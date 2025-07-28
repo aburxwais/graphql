@@ -27,7 +27,7 @@ export const ProjectChart = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        borderRadius: 4,
+        borderRadius: 2,
         columnWidth: "50%",
       },
     },
@@ -37,7 +37,7 @@ export const ProjectChart = () => {
     xaxis: {
       categories: labels,
       labels: {
-        
+        trim: true,
         rotate: -45,
         style: {
           fontSize: "7px",
@@ -56,6 +56,21 @@ export const ProjectChart = () => {
         formatter: (val) => `${val} XP`,
       },
     },
+    responsive: [
+      {
+        breakpoint: 1024,
+        options: {
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: '3px'
+              }
+            }
+          }
+        }
+      }
+    ]
+      
   };
 
   const chartSeries = [
