@@ -43,16 +43,21 @@ export const AuditsRecieved = gql`
 
 
 export const UserXP = gql`
-  query GetUserXP($userId: Int!) {
-    xp_view(
-      where: {
-        userId: { _eq: $userId },
-        path: { _regex: "^/bahrain/bh-module/[^/]+$" }
-      }
-    ) {
-      amount
-    }
-  }
+
+query GetUserXP{
+  transaction_aggregate(
+       where: {
+         event: { path: { _eq: "/bahrain/bh-module" } }
+         type: { _eq: "xp" }
+       }
+     ) {
+       aggregate {
+         sum {
+           amount
+         }
+       }
+     }
+   }
 `;
 
 export const Projects = gql`

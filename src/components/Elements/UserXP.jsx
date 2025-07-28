@@ -1,4 +1,3 @@
-// src/Elements/UserXP.jsx
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { UserXP } from "../Queries/Queries";
@@ -20,7 +19,7 @@ export function UserXPCard({ userId }) {
     );
   }
 
-  const totalBytes = data.xp_view.reduce((sum, r) => sum + r.amount, 0);
+  const totalBytes = data?.transaction_aggregate?.aggregate?.sum?.amount || 0;
 
   const totalKB = Math.round(totalBytes / 1000);
 
