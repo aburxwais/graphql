@@ -11,8 +11,6 @@ export const ProjectChart = () => {
 
   const projects = data?.transaction || [];
 
-  
-
   const sorted = [...projects].sort(
     (a, b) => new Date(a.completedAt) - new Date(b.completedAt)
   );
@@ -31,16 +29,15 @@ export const ProjectChart = () => {
         columnWidth: "50%",
       },
     },
-    dataLabels: {
-      enabled: false,
-    },
+    dataLabels: { enabled: false },
     xaxis: {
       categories: labels,
       labels: {
-        trim: true,
-        rotate: -45,
+
+        show: true,
+        rotate: -75,
         style: {
-          fontSize: "7px",
+          fontSize: "12px",
           whiteSpace: "nowrap",
         },
       },
@@ -58,19 +55,19 @@ export const ProjectChart = () => {
     },
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 800,
         options: {
           xaxis: {
             labels: {
+              show: false, 
               style: {
-                fontSize: '3px'
+                fontSize: "6px"
               }
-            }
-          }
-        }
-      }
-    ]
-      
+            },
+          },
+        },
+      },
+    ],
   };
 
   const chartSeries = [
@@ -81,8 +78,14 @@ export const ProjectChart = () => {
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <Chart options={chartOptions} series={chartSeries} type="bar" height={400} />
+    <div className="w-full">
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="bar"
+        height={500}
+        width="100%"
+      />
     </div>
   );
 };
