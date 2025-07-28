@@ -55,7 +55,7 @@ export const ProjectChart = () => {
     },
     responsive: [
       {
-        breakpoint: 800,
+        breakpoint: 650,
         options: {
           xaxis: {
             labels: {
