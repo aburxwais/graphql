@@ -40,7 +40,7 @@ export const ProjectChart = () => {
         
         rotate: -45,
         style: {
-          fontSize: "10px",
+          fontSize: "7px",
           whiteSpace: "nowrap",
         },
       },
@@ -50,7 +50,7 @@ export const ProjectChart = () => {
         text: "XP",
       },
     },
-    colors: ["#60a5fa"], // Tailwind blue-400
+    colors: ["#60a5fa"],
     tooltip: {
       y: {
         formatter: (val) => `${val} XP`,
@@ -67,7 +67,6 @@ export const ProjectChart = () => {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-lg font-semibold mb-4">Projects Completed</h2>
       <Chart options={chartOptions} series={chartSeries} type="bar" height={400} />
     </div>
   );
