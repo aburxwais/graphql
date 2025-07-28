@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Profile from './Profile';
 
 function Login() {
   const [error, setError] = useState('');
   const [token, setToken] = useState('');
+
+  useEffect(()=> {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken)
+    }
+  },[])
 
   const handleLogin = async (e) => {
     e.preventDefault();

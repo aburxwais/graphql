@@ -39,7 +39,6 @@ export default function Profile() {
           </Card>
            {/* Card 2: Current Project + XP */}
           <Card className="flex flex-col items-center text-center divide-y divide-gray-100">
-            {/* Current Project block */}
             <div className="py-6 flex flex-col gap-2 items-center w-full">
               <h3 className="text-sm text-gray-500">Currently working on:</h3>
               <CurrentProjectCard />
