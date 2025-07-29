@@ -62,16 +62,16 @@ query GetUserXP{
 
 export const Projects = gql`
 
-query User_Skills {
+query Projects_Completed {
   transaction(
     where: {
       type:   { _eq: "xp" },
       object: { type: { _eq: "project" } }
     },
-    order_by: { createdAt: asc }      # ← sort by date
+    order_by: { createdAt: asc }      
   ) {
     amount
-    createdAt                         # ← fetch this too
+    createdAt                        
     object {
       name
     }
