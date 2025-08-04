@@ -17,7 +17,6 @@ export const AuditsDone = gql`
     transaction_aggregate(where: { type: { _eq: "up" } }) {
       aggregate {
         sum {
-        
           amount
         }
       }
@@ -103,4 +102,17 @@ export const ToadGameResults = gql`
       attempts
     }
   }
+`;
+
+export const LabelQuery = gql`
+query Label_user {
+    label_user {
+        createdAt
+        id
+        labelId
+        labelName
+        userId
+    }
+}
+
 `;

@@ -8,12 +8,21 @@ import { UserXPCard } from "./Elements/UserXP";
 import { ProjectChart } from "./Elements/Projects";
 import { UserInfo } from "./Queries/Queries";
 import { Card } from "./Card";
+import { LabelQuery } from "./Queries/Queries";
 
 export default function Profile() {
   const { data: userData } = useQuery(UserInfo);
   const user = userData?.user?.[0];
   const fullName = user ? `${user.firstName} ${user.lastName}` : "Loading…";
 
+
+  const { data: labelData } = useQuery(LabelQuery);
+
+  const hasTechTeamLabel = labelData?.label_user?.some(
+    (label) =>
+      label.labelName.toLowerCase() === "tech team" &&
+      label.userId === user?.id
+  );
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 overflow-x-hidden">
       {/* Nav */}
@@ -47,6 +56,11 @@ export default function Profile() {
               <div className="py-6 flex flex-col gap-2 items-center w-full">
                 <h3 className="text-sm text-gray-500">Total XP</h3>
                 <UserXPCard userId={Number(user.id)} />
+                {hasTechTeamLabel && (
+                  <p className="text-xs text-indigo-600 mt-2">
+                    🔧 You're part of the Tech Team – XP may be inaccurate.
+                  </p>
+                )}
               </div>
             )}
           </Card>
