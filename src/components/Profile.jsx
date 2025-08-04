@@ -1,4 +1,3 @@
-// src/Profile.jsx
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { AuditGraph } from "./Elements/Audit";
@@ -6,23 +5,49 @@ import { CurrentProjectCard } from "./Elements/CurrentProject";
 import ToadGameResultsCard from "./Elements/Toad";
 import { UserXPCard } from "./Elements/UserXP";
 import { ProjectChart } from "./Elements/Projects";
-import { UserInfo } from "./Queries/Queries";
+import { UserInfo, LabelQuery, UserRole } from "./Queries/Queries";
 import { Card } from "./Card";
-import { LabelQuery } from "./Queries/Queries";
 
 export default function Profile() {
-  const { data: userData } = useQuery(UserInfo);
+  const { data: userData, loading: userLoading } = useQuery(UserInfo);
+  const { data: roleData, loading: roleLoading } = useQuery(UserRole);
+  const { data: labelData, loading: labelLoading } = useQuery(LabelQuery);
+
   const user = userData?.user?.[0];
   const fullName = user ? `${user.firstName} ${user.lastName}` : "Loading…";
 
+  if (userLoading || roleLoading || !user) {
+    return <div className="p-10 text-center text-gray-500">Loading...</div>;
+  }
 
-  const { data: labelData } = useQuery(LabelQuery);
+  const isAdmin = roleData?.user_role?.some(
+    (entry) => entry.userId === user?.id && entry.role?.slug === "admin"
+  );
+
+  if (isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-10 text-center">
+        <p className="text-red-600 text-lg font-semibold mb-6">
+          🛡️ You are an admin. The full profile cannot be loaded.
+        </p>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg"
+        >
+          Logout
+        </button>
+      </div>
+    );
+  }
 
   const hasTechTeamLabel = labelData?.label_user?.some(
     (label) =>
-      label.labelName.toLowerCase() === "tech team" &&
-      label.userId === user?.id
+      label.labelName.toLowerCase() === "tech team" && label.userId === user?.id
   );
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 overflow-x-hidden">
       {/* Nav */}

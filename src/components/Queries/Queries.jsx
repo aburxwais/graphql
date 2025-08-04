@@ -116,3 +116,22 @@ query Label_user {
 }
 
 `;
+
+export const UserRole = gql `
+query User_role2 {
+    user_role {
+        id
+        roleId
+        userId
+        role {
+            createdAt
+            description
+            id
+            name
+            slug
+            updatedAt
+        }
+    }
+}
+
+`
